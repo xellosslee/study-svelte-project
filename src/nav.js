@@ -1,5 +1,6 @@
-import Home from './pages/home';
-import { NotFound } from './pages/errors';
+import Home from './pages/home/Home.svelte';
+import { Transaction } from './pages/menus';
+import { NotFound, BadRequest } from './pages/errors';
 
 let routes = [
 	{
@@ -8,8 +9,13 @@ let routes = [
 	},
 	{
 		path: '/errors',
-		component: NotFound,
+		component: BadRequest,
 		name: 'Errors',
+	},
+	{
+		path: '/menu/transaction',
+		component: Transaction,
+		name: 'Transaction',
 	},
 	{
 		path: '/*',
