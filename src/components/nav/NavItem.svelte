@@ -1,3 +1,11 @@
+<script>
+	export let path;
+	export let name;
+	export let active = false;
+
+	$: level = path.split("/").length - 1;
+</script>
+
 {#if path && name}
 	<a
 		href={path}
@@ -9,14 +17,6 @@
 		{name}
 	</a>
 {/if}
-
-<script>
-	export let path;
-	export let name;
-	export let active = false;
-
-	$: level = path.split('/').length - 1;
-</script>
 
 <style>
 	.dense {
@@ -49,7 +49,7 @@
 		background-color: currentColor;
 		color: inherit;
 		bottom: 0;
-		content: '';
+		content: "";
 		left: 0;
 		opacity: 0;
 		pointer-events: none;
