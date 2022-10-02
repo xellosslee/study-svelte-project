@@ -13,7 +13,7 @@ let routes = [
 		name: 'Errors',
 	},
 	{
-		path: '/menu/transaction',
+		path: '/transaction',
 		component: Transaction,
 		name: 'Transaction',
 	},

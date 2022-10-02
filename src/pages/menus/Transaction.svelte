@@ -3,33 +3,76 @@
     import { Textfield } from "svelte-mui";
     var upperItems = [
         {
-            label: 'UserName',
-            field: 'userName',
-            value: '',
+            label: "UserName",
+            field: "userName",
+            value: "",
             required: true,
         },
         {
-            label: 'UserEmail',
-            field: 'userEmail',
-            value: 'email',
+            label: "UserEmail",
+            field: "userEmail",
+            value: "email",
+            required: false,
+        },
+        {
+            label: "UserEmail",
+            field: "userEmail",
+            value: "",
+            required: false,
+        },
+        {
+            label: "UserEmail",
+            field: "userEmail",
+            value: "",
+            required: false,
+        },
+        {
+            label: "UserEmail",
+            field: "userEmail",
+            value: "",
+            required: false,
+        },
+        {
+            label: "UserEmail",
+            field: "userEmail",
+            value: "",
+            required: false,
+        },
+        {
+            label: "UserEmail",
+            field: "userEmail",
+            value: "",
             required: false,
         },
     ];
-    onMount(async () => {
-    });
+    onMount(async () => {});
 </script>
 
 <div class="upperItemsWrap">
-	{#each upperItems as { label, value, required }}
-        <Textfield label={label} bind:value {required} />
+    {#each upperItems as { label, value, required }}
+        <div class="upperItem">
+            <Textfield
+                style="margin: 6px 0;"
+                {label}
+                outlined="true"
+                bind:value
+                {required}
+            />
+        </div>
     {/each}
 </div>
 
 <style>
     .upperItemsWrap {
+        display: flex;
+        flex-wrap: wrap;
         width: 100%;
-        min-height: 50px;
-        max-height: 200px;
-        background: black;
+        background: var(--bg-color);
+    }
+    .upperItemsWrap .upperItem {
+        min-width: 100px;
+        max-width: 400px;
+        padding-right: 12px;
+        background: var(--bg-color);
     }
 </style>
