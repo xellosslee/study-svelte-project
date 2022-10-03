@@ -1,6 +1,8 @@
 <script>
     import { onMount } from "svelte";
     import UpperItems from "../../components/UpperItems.svelte";
+    let curGroup = 'a'; // Initial Group
+    let upperItems;
     let upperItemlist = [
         {
             type: "group-radio",
@@ -9,7 +11,7 @@
                 { label: "a", data: "a" },
                 { label: "b", data: "b" },
             ],
-            data: "a",
+            data: curGroup,
         },
         {
             type: "text",
@@ -63,11 +65,9 @@
             group: "b",
         },
     ];
-    let curGroup = 'b';
-    let upperItems;
     onMount(async () => {
         // External group select
-        upperItems.groupChange('a');
+        // upperItems.groupChange('a');
     });
 </script>
 
