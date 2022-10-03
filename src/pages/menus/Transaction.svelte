@@ -1,18 +1,26 @@
 <script>
     import { onMount } from "svelte";
     import UpperItems from "../../components/UpperItems.svelte";
-    var upperItems = [
+    let upperItemlist = [
         {
-            type: "text",
-            label: "UserName",
-            field: "userName",
-            data: "",
-            required: true,
-            group: "ab",
+            type: "group-radio",
+            label: "GroupChange",
+            list: [
+                { label: "a", data: "a" },
+                { label: "b", data: "b" },
+            ],
+            data: "a",
         },
         {
             type: "text",
-            label: "UserEmail",
+            label: "UserName (all show)",
+            field: "userName",
+            data: "",
+            required: true,
+        },
+        {
+            type: "text",
+            label: "UserEmail (only a)",
             field: "userEmail",
             data: "email",
             required: false,
@@ -20,7 +28,7 @@
         },
         {
             type: "text",
-            label: "Phone",
+            label: "Phone (only b)",
             field: "phone",
             data: "",
             required: false,
@@ -39,27 +47,31 @@
             group: "b",
         },
         {
-            type: "text",
-            label: "UserEmail",
-            field: "userEmail",
-            data: "",
-            required: false,
-            group: "b",
+            type: "button",
+            label: "Search (only a)",
+            func: () => {
+                console.log("clicked");
+            },
+            group: "a",
         },
         {
             type: "button",
-            label: "UserEmail",
-            field: "userEmail",
-            data: "",
-            required: false,
+            label: "Search (only b)",
+            func: () => {
+                console.log("clicked");
+            },
             group: "b",
         },
     ];
-    onMount(async () => {});
+    let curGroup = 'b';
+    let upperItems;
+    onMount(async () => {
+        // External group select
+        upperItems.groupChange('a');
+    });
 </script>
 
-<UpperItems upperItemlist={upperItems} />
-<div />
+<UpperItems bind:this={upperItems} {upperItemlist} {curGroup} />
 
 <style>
 </style>

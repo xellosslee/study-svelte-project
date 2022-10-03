@@ -1,20 +1,38 @@
 <script>
-    export let upperItems = [];
-    import { Textfield, Radio } from "svelte-mui";
+    import { onMount } from "svelte";
+    import { Textfield, Radio, Button } from "svelte-mui";
     /** Custom Item attribute
      * @param type type
      * @param label label
      * @param field field (rest api with server on communicate)
+     * @param func func in locally using javascript function name
      * @param data data from input and send api server
      * @param list if type radio, select then must has this attribute
      * @param required
      * @param group if change input group
      * */
     export let upperItemlist = [];
+    // Set default Group : When props sets curGroup changed it
+    export let curGroup = 'a';
+    let filterdList = [];
+    
+    groupChange(curGroup);
+    // Internal group select
+    export function groupChange(val) {
+        curGroup = this?.value || val
+        console.log('show group ' + curGroup);
+        filterdList = upperItemlist.filter((e) => {
+            if (e.group == null || e.group.indexOf(curGroup) > -1) {
+                return true;
+            } else {
+                return false;
+            }
+        });
+    }
 </script>
 
 <div class="upperItemsWrap">
-    {#each upperItemlist as { type, label, field, data, list, required, group }}
+    {#each filterdList as { type, label, func, data, list, required }}
         <div class="upperItem">
             {#if type == "text"}
                 <Textfield
@@ -24,18 +42,26 @@
                     bind:data
                     {required}
                 />
-            {:else if type == "radio"}
+            {:else if type == "group-radio"}
                 {label}
                 <div style="display: flex;">
                     {#each list as item}
-                        <Radio
-                            bind:group={data}
-                            value={item.data}
-                        >
+                        <Radio bind:group={data} value={item.data} on:change={groupChange}>
                             {item.label}
                         </Radio>
                     {/each}
                 </div>
+            {:else if type == "radio"}
+                {label}
+                <div style="display: flex;">
+                    {#each list as item}
+                        <Radio bind:group={data} value={item.data} on:change={func}>
+                            {item.label}
+                        </Radio>
+                    {/each}
+                </div>
+            {:else if type == "button"}
+                <Button color="primary" on:click={func}>{label}</Button>
             {/if}
         </div>
     {/each}
