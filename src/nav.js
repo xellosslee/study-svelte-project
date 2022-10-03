@@ -1,5 +1,6 @@
 import Home from './pages/home/Home.svelte';
-import { Transaction } from './pages/menus';
+import GroupSwitch from './pages/menus/GroupSwitch.svelte';
+import InputTypes from './pages/menus/InputTypes.svelte';
 import { NotFound, BadRequest } from './pages/errors';
 
 let routes = [
@@ -13,9 +14,14 @@ let routes = [
 		name: 'Errors',
 	},
 	{
-		path: '/transaction',
-		component: Transaction,
-		name: 'Transaction',
+		path: '/InputTypes',
+		component: InputTypes,
+		name: 'InputTypes',
+	},
+	{
+		path: '/GroupSwitch',
+		component: GroupSwitch,
+		name: 'GroupSwitch',
 	},
 	{
 		path: '/*',
