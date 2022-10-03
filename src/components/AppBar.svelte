@@ -83,7 +83,7 @@
         <Icon path={home} />
     </a>
 
-    <div class="title">Back Office</div>
+    <div class="title">Project Back Office</div>
 
     {#if !legacy}
         <Button

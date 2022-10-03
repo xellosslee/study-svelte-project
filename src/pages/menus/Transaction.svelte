@@ -1,78 +1,65 @@
 <script>
     import { onMount } from "svelte";
-    import { Textfield } from "svelte-mui";
+    import UpperItems from "../../components/UpperItems.svelte";
     var upperItems = [
         {
+            type: "text",
             label: "UserName",
             field: "userName",
-            value: "",
+            data: "",
             required: true,
+            group: "ab",
         },
         {
+            type: "text",
             label: "UserEmail",
             field: "userEmail",
-            value: "email",
+            data: "email",
             required: false,
+            group: "a",
         },
         {
-            label: "UserEmail",
-            field: "userEmail",
-            value: "",
+            type: "text",
+            label: "Phone",
+            field: "phone",
+            data: "",
             required: false,
+            group: "b",
         },
         {
-            label: "UserEmail",
-            field: "userEmail",
-            value: "",
+            type: "radio",
+            label: "Authorization",
+            field: "isJoin",
+            list: [
+                { label: "yes", data: 1 },
+                { label: "no", data: 0 },
+            ],
+            data: 1,
             required: false,
+            group: "b",
         },
         {
+            type: "text",
             label: "UserEmail",
             field: "userEmail",
-            value: "",
+            data: "",
             required: false,
+            group: "b",
         },
         {
+            type: "button",
             label: "UserEmail",
             field: "userEmail",
-            value: "",
+            data: "",
             required: false,
-        },
-        {
-            label: "UserEmail",
-            field: "userEmail",
-            value: "",
-            required: false,
+            group: "b",
         },
     ];
     onMount(async () => {});
 </script>
 
-<div class="upperItemsWrap">
-    {#each upperItems as { label, value, required }}
-        <div class="upperItem">
-            <Textfield
-                style="margin: 6px 0;"
-                {label}
-                outlined="true"
-                bind:value
-                {required}
-            />
-        </div>
-    {/each}
-</div>
+<UpperItems upperItemlist={upperItems} />
+<div />
 
 <style>
-    .upperItemsWrap {
-        display: flex;
-        flex-wrap: wrap;
-        width: 100%;
-        background: var(--bg-color);
-    }
-    .upperItemsWrap .upperItem {
-        min-width: 100px;
-        max-width: 400px;
-        padding-right: 12px;
-        background: var(--bg-color);
-    }
 </style>

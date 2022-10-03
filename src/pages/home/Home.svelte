@@ -1,24 +1,12 @@
 <script>
-    import introduction from "./introduction.md";
-    import quickStart from "./quick-start.md";
-    import byExample from "./by-example.md";
+    import updateHistory from "./updateHistory.md";
     import { onMount } from "svelte";
     onMount(async () => {
-        console.log(introduction);
     });
 </script>
 
-<div class="warning">
-    <p>
-        <em>WARNING</em>
-    </p>
-    <p>This is a demo of work in progress...</p>
-</div>
-
 <section>
-    {@html introduction.html}
-    {@html quickStart.html}
-    {@html byExample.html}
+    {@html updateHistory.html}
 </section>
 
 <style>
