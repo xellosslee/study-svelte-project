@@ -14,7 +14,7 @@
 	import LeftPanel from "./components/LeftPanel.svelte";
 	import RightPanel from "./components/RightPanel.svelte";
 	import LoginDialog from "./components/LoginDialog.svelte";
-	import Nav from "./components/nav";
+	import Nav from "./components/nav/Nav.svelte";
 
 	import nav from "./nav";
 

@@ -6,7 +6,7 @@
     import { Button, Icon, Sidepanel } from "svelte-mui/src";
 
     import { arrowBack } from "./icons";
-    import Nav from "./nav";
+    import Nav from "./nav/Nav.svelte";
 </script>
 
 <Sidepanel bind:visible disableScroll>
