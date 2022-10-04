@@ -3,28 +3,28 @@
 	export let titlePage = null;
 	export let ctx = null;
 
-	import { onMount, tick } from "svelte";
-	import { fly } from "svelte/transition";
-	import { linear } from "svelte/easing";
+	import { onMount, tick } from 'svelte';
+	import { fly } from 'svelte/transition';
+	import { linear } from 'svelte/easing';
 
-	import { Icon } from "svelte-mui/src";
-	import { arrowForward } from "./components/icons";
+	import { Icon } from 'svelte-mui/src';
+	import { arrowForward } from './components/icons';
 
-	import AppBar from "./components/AppBar.svelte";
-	import LeftPanel from "./components/LeftPanel.svelte";
-	import RightPanel from "./components/RightPanel.svelte";
-	import LoginDialog from "./components/LoginDialog.svelte";
-	import Nav from "./components/nav/Nav.svelte";
+	import AppBar from './components/AppBar.svelte';
+	import LeftPanel from './components/LeftPanel.svelte';
+	import RightPanel from './components/RightPanel.svelte';
+	import LoginDialog from './components/LoginDialog.svelte';
+	import Nav from './components/nav/Nav.svelte';
 
-	import nav from "./nav";
+	import nav from './nav';
 
 	let maxWidth = 720;
 	let offsetTop = 0;
 	let leftPanelVisible = false;
 	let rightPanelVisible = false;
 	let loginDialogVisible = false;
-	let username = "";
-	let password = "";
+	let username = '';
+	let password = '';
 
 	onMount(async () => {
 		onResize();
@@ -50,7 +50,7 @@
 			leftPanelVisible = false;
 
 			await tick();
-			let node = document.getElementsByClassName("nav-panel")[0];
+			let node = document.getElementsByClassName('nav-panel')[0];
 			try {
 				const rc = node.getClientRects()[0];
 				const h =
@@ -59,10 +59,10 @@
 					document.body.clientHeight;
 				const maxHeight = h - rc.top - 24;
 
-				node.style.maxHeight = maxHeight + "px";
+				node.style.maxHeight = maxHeight + 'px';
 			} catch (err) {} // eslint-disable-line
 		} else {
-			nav[0].name = "Home";
+			nav[0].name = 'Home';
 		}
 	}
 
@@ -74,7 +74,7 @@
 <svelte:window on:scroll|passive={onScroll} on:resize|passive={onResize} />
 
 <svelte:head>
-	<title>svelte-mui{titlePage ? `: ${titlePage}` : ""}</title>
+	<title>svelte-mui{titlePage ? `: ${titlePage}` : ''}</title>
 </svelte:head>
 
 <AppBar
@@ -112,7 +112,7 @@
 
 			<svelte:component this={page.default || page} {...ctx} />
 
-			{#if maxWidth < 721 && ctx.path === "/"}
+			{#if maxWidth < 721 && ctx.path === '/'}
 				<div
 					class="explore"
 					tabindex="0"
@@ -190,7 +190,7 @@
 		background-color: currentColor;
 		color: inherit;
 		bottom: 0;
-		content: "";
+		content: '';
 		left: 0;
 		opacity: 0;
 		pointer-events: none;

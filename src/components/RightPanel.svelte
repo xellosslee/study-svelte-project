@@ -1,7 +1,7 @@
 <script>
     export let visible = false;
 
-    import { Sidepanel } from "svelte-mui/src";
+    import { Sidepanel } from 'svelte-mui/src';
 </script>
 
 <Sidepanel right bind:visible>

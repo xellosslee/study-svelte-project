@@ -1,9 +1,9 @@
 <script>
     export let visible = false;
-    export let username = "";
-    export let password = "";
+    export let username = '';
+    export let password = '';
 
-    import { Dialog, Textfield, Button } from "svelte-mui/src";
+    import { Dialog, Textfield, Button } from 'svelte-mui/src';
 </script>
 
 <Dialog width="290" bind:visible>

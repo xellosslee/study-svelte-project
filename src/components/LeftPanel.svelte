@@ -1,12 +1,12 @@
 <script>
     export let visible = false;
-    export let currentPath = "";
+    export let currentPath = '';
     export let sitenav = [];
 
-    import { Button, Icon, Sidepanel } from "svelte-mui/src";
+    import { Button, Icon, Sidepanel } from 'svelte-mui/src';
 
-    import { arrowBack } from "./icons";
-    import Nav from "./nav/Nav.svelte";
+    import { arrowBack } from './icons';
+    import Nav from './nav/Nav.svelte';
 </script>
 
 <Sidepanel bind:visible disableScroll>

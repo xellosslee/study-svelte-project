@@ -4,39 +4,45 @@
     export let rightPanelVisible = false;
     export let loginDialogVisible = false;
 
-    import { onMount } from "svelte";
+    import { onMount } from 'svelte';
 
-    import { Button, Icon, Menu, Menuitem } from "svelte-mui/src";
-    import { home, menu, invertColors, moreVert, accountCircle } from "../components/icons";
+    import { Button, Icon, Menu, Menuitem } from 'svelte-mui/src';
+    import {
+        home,
+        menu,
+        invertColors,
+        moreVert,
+        accountCircle,
+    } from '../components/icons';
 
-    import { theme } from "../store";
+    import { theme } from '../store';
 
     let el;
     let legacy = true;
 
     const darkTheme = {
-        "--color": "#eee",
-        "--alternate": "#000",
-        "--bg-color": "#303134",
-        "--primary": "#3ea6ff",
-        "--accent": "#ff6fab",
-        "--divider": "rgba(255,255,255,0.175)",
-        "--bg-popover": "#3f3f3f",
-        "--border": "#555",
-        "--label": "rgba(255,255,255,0.5)",
-        "--bg-input-filled": "rgba(255,255,255,0.1)",
+        '--color': '#eee',
+        '--alternate': '#000',
+        '--bg-color': '#303134',
+        '--primary': '#3ea6ff',
+        '--accent': '#ff6fab',
+        '--divider': 'rgba(255,255,255,0.175)',
+        '--bg-popover': '#3f3f3f',
+        '--border': '#555',
+        '--label': 'rgba(255,255,255,0.5)',
+        '--bg-input-filled': 'rgba(255,255,255,0.1)',
 
-        "--bg-app-bar": "#838383",
-        "--bg-panel": "#434343",
+        '--bg-app-bar': '#838383',
+        '--bg-panel': '#434343',
 
-        "--focus-color": "rgba(62, 166, 255, 0.5)", // primary with alpha
+        '--focus-color': 'rgba(62, 166, 255, 0.5)', // primary with alpha
     };
 
     $: if (el) {
         fade
             ? (el.style.boxShadow =
-                  "0 1px 2px 0 rgba(0,0,0,.2), 0 2px 6px 2px rgba(0,0,0,.18)")
-            : (el.style.boxShadow = "");
+                  '0 1px 2px 0 rgba(0,0,0,.2), 0 2px 6px 2px rgba(0,0,0,.18)')
+            : (el.style.boxShadow = '');
     }
 
     onMount(async () => {
@@ -44,26 +50,26 @@
             legacy = !(
                 window.CSS &&
                 window.CSS.supports &&
-                window.CSS.supports("(--foo: red)")
+                window.CSS.supports('(--foo: red)')
             );
 
-            let mql = window.matchMedia("(prefers-color-scheme: dark)");
-            mql.matches && setTheme("dark");
+            let mql = window.matchMedia('(prefers-color-scheme: dark)');
+            mql.matches && setTheme('dark');
         } catch (err) {} // eslint-disable-line
     });
 
     function setTheme(name) {
-        name = name.replace(/\s/g, "").toLowerCase();
+        name = name.replace(/\s/g, '').toLowerCase();
 
         $theme = name;
-        $theme === "dark"
+        $theme === 'dark'
             ? Object.keys(darkTheme).map((key) => {
                   document.documentElement.style.setProperty(
                       key,
                       darkTheme[key]
                   );
               })
-            : document.documentElement.removeAttribute("style");
+            : document.documentElement.removeAttribute('style');
     }
 </script>
 
@@ -88,7 +94,7 @@
     {#if !legacy}
         <Button
             icon
-            on:click={() => setTheme($theme === "dark" ? "light" : "dark")}
+            on:click={() => setTheme($theme === 'dark' ? 'light' : 'dark')}
         >
             <Icon path={invertColors} />
         </Button>
@@ -103,7 +109,7 @@
             disabled={legacy}
             on:click={(e) => setTheme(e.target.textContent)}
         >
-            {$theme === "dark" ? "Light" : "Dark"}
+            {$theme === 'dark' ? 'Light' : 'Dark'}
         </Menuitem>
         <Menuitem
             on:click={() => (rightPanelVisible = true)}

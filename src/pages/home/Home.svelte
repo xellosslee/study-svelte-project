@@ -1,8 +1,7 @@
 <script>
-    import updateHistory from "./updateHistory.md";
-    import { onMount } from "svelte";
-    onMount(async () => {
-    });
+    import updateHistory from './updateHistory.md';
+    import { onMount } from 'svelte';
+    onMount(async () => {});
 </script>
 
 <section>
