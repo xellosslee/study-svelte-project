@@ -27,6 +27,31 @@
             required: true,
         },
         {
+            type: 'radio',
+            label: 'Authorization',
+            field: 'join',
+            list: [
+                { label: 'yes', data: 1 },
+                { label: 'no', data: 0 },
+            ],
+            data: 1,
+            required: false,
+        },
+        {
+            type: 'checkbox',
+            html: '<b>Check</b>box',
+            field: 'check',
+            data: 1,
+            required: false,
+        },
+        {
+            type: 'checkbox-group',
+            field: 'checkGroup',
+            list: ['apple','pie','berry'],
+            data: [],
+            required: false,
+        },
+        {
             type: 'button',
             label: 'Search',
             func: () => {
