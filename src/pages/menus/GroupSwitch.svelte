@@ -3,7 +3,7 @@
     import UpperItems from '../../components/UpperItems.svelte';
     let curGroup = 'a'; // Initial Group
     let upperItems;
-    let upperItemlist = [
+    let upperItemList = [
         {
             type: 'group-radio',
             label: 'GroupChange',
@@ -71,7 +71,7 @@
     });
 </script>
 
-<UpperItems bind:this={upperItems} {upperItemlist} {curGroup} />
+<UpperItems bind:this={upperItems} {upperItemList} {curGroup} />
 
 <style>
 </style>
