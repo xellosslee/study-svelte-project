@@ -14,17 +14,17 @@
      * @param group if change show group
      * @param extra if item has custom action using in this value
      * */
-    export let upperItemlist = [];
+    export let upperItemList = [];
     // Set default Group : When props sets curGroup changed it
     export let curGroup = 'a';
-    let filterdList = [];
+    let filterList = [];
 
     groupChange(curGroup);
     // Internal group select
     export function groupChange(val) {
         curGroup = this?.value || val;
         console.log('show group ' + curGroup);
-        filterdList = upperItemlist.filter((e) => {
+        filterList = upperItemList.filter((e) => {
             if (e.group == null || e.group.indexOf(curGroup) > -1) {
                 return true;
             } else {
@@ -33,24 +33,25 @@
         });
     }
     export function getValues() {
-        let requireCheck = filterdList.filter((e) => {
-            e.required && (e.data == null || e.data == '');
+        let requireCheck = filterList.filter((e) => {
+            return e.required && (e.data == null || e.data == '');
         });
         if (requireCheck) {
-            console.log('');
+            alert(`필수값 [${requireCheck.map(e => e.label).join(',')}] 이 누락되었습니다.`);
+            return [];
         }
-        return filterdList.map((e) => {
+        return filterList.map((e) => {
             return { field: e.field, value: e.data };
         });
     }
 
     function checkboxGroupAll(e) {
         let on = e.target.checked;
-        let chk = filterdList.find(ee => ee.field == e.target.getAttribute('field'));
+        let chk = filterList.find(ee => ee.field == e.target.getAttribute('field'));
         chk.data = on ? chk.list : [];
     }
     function checkboxGroupClick(e) {
-        let chk = filterdList.find(ee => ee.field == e.target.getAttribute('field'));
+        let chk = filterList.find(ee => ee.field == e.target.getAttribute('field'));
         chk.extra = {
             ...chk.extra || {},
             checkedGroup: chk.data.length === chk.list.length
@@ -64,7 +65,7 @@
 
 <!-- svelte-ignore non-top-level-reactive-declaration -->
 <div class="upperItemsWrap">
-    {#each filterdList as { type, label, html, field, func, data, list, required, extra }}
+    {#each filterList as { type, label, html, field, func, data, list, required, extra }}
         <div class="upperItem">
             {#if type == 'text'}
                 <Textfield

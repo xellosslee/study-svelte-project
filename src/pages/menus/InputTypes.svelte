@@ -3,7 +3,7 @@
     import UpperItems from '../../components/UpperItems.svelte';
     let curGroup = 'a'; // Initial Group
     let upperItems;
-    let upperItemlist = [
+    let upperItemList = [
         {
             type: 'group-radio',
             label: 'GroupChange',
@@ -18,6 +18,13 @@
             label: 'UserName',
             field: 'userName',
             required: true,
+        },
+        {
+            type: 'text',
+            label: 'UserNameB',
+            field: 'userNameB',
+            required: true,
+            group: 'b'
         },
         {
             type: 'date',
@@ -47,7 +54,7 @@
         {
             type: 'checkbox-group',
             field: 'checkGroup',
-            list: ['apple','pie','berry'],
+            list: ['apple','pie','berry','berry','berry','berry','berry','berry'],
             data: [],
             required: false,
         },
@@ -65,4 +72,4 @@
     });
 </script>
 
-<UpperItems bind:this={upperItems} {upperItemlist} {curGroup} />
+<UpperItems bind:this={upperItems} {upperItemList} {curGroup} />
