@@ -1,6 +1,6 @@
 <script>
     import { onMount } from 'svelte';
-    import { Textfield, Radio as RadioMui, Button, Datefield, Checkbox } from 'svelte-mui';
+    import { Button, Datefield, Checkbox } from 'svelte-mui';
     import { Text, Radio } from './searchInputs';
     import CheckboxGroup from './inputs/CheckboxGroup.svelte';
     /** Custom Item attribute
@@ -101,7 +101,6 @@
                         />
                     {:else if type == 'group-radio'}
                         <Radio
-                            bind:group={field}
                             bind:value={data}
                             {label}
                             {title}
@@ -110,7 +109,6 @@
                         />
                     {:else if type == 'radio'}
                         <Radio
-                            bind:group={field}
                             bind:value={data}
                             {label}
                             {title}
@@ -168,7 +166,7 @@
     .upperItem {
         min-width: 100px;
         max-width: 400px;
-        padding: 0 12px 0 0;
+        padding: 0 12px 12px 0;
         background: var(--bg-color);
     }
 </style>

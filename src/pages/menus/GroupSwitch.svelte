@@ -7,10 +7,10 @@
         {
             type: 'group-radio',
             label: 'GroupChange',
-            list: [
-                { label: 'a', data: 'a' },
-                { label: 'b', data: 'b' },
-            ],
+            options: {
+                'A': 'a',
+                'B': 'b'
+            },
             data: curGroup,
         },
         {
@@ -40,10 +40,10 @@
             type: 'radio',
             label: 'Authorization',
             field: 'isJoin',
-            list: [
-                { label: 'yes', data: 1 },
-                { label: 'no', data: 0 },
-            ],
+            options: {
+                'yes': 1,
+                'no': 0
+            },
             data: 1,
             required: false,
             group: 'b',

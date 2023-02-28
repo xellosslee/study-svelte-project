@@ -1,5 +1,6 @@
 <script>
-    export let group = null;
+    import { radioChecked, radioUnchecked } from '../icons';
+    import Icon from '../icons/Icon.svelte';
     export let value = '';
     export let readonly = false;
     export let disabled = false;
@@ -14,7 +15,7 @@
             disabled: disabled ? disabled : undefined,
             readonly: readonly ? readonly : undefined,
         };
-        value
+        value;
     }
 </script>
 
@@ -28,7 +29,16 @@
         </span>
         {#each Object.entries(options) as [key, val]}
             <label>
-                {key} <input type="radio" bind:group={value} value={val} {...attrs} on:change />
+                {key}
+                <input
+                    type="radio"
+                    hidden
+                    bind:group={value}
+                    value={val}
+                    {...attrs}
+                    on:change
+                />
+                <Icon size=18 color="var(--primary)" path={value === val ? radioChecked : radioUnchecked} />
             </label>
         {/each}
     </div>
@@ -52,8 +62,13 @@
     .wrapper > .item .label {
         margin: 0 10px;
     }
+    .wrapper > .item label {
+        margin: 0 10px 0 0;
+        line-height: 30px;
+    }
     .wrapper > .item input {
-        height: 100%;
+        margin: 0 5px;
+        vertical-align: middle;
         background: inherit;
         border: none;
         color: white;
