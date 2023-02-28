@@ -1,7 +1,7 @@
 <script>
     import { onMount } from 'svelte';
-    import { Textfield, Radio, Button, Datefield, Checkbox } from 'svelte-mui';
-    import { Text } from './searchInputs';
+    import { Textfield, Radio as RadioMui, Button, Datefield, Checkbox } from 'svelte-mui';
+    import { Text, Radio } from './searchInputs';
     import CheckboxGroup from './inputs/CheckboxGroup.svelte';
     /** Custom Item attribute
      * @param type type
@@ -10,16 +10,23 @@
      * @param field field (rest api with server on communicate)
      * @param func func in locally using javascript function name
      * @param data data from input and send api server
-     * @param list if type radio, select then must has this attribute
+     * @param options if type radio, select then must has this attribute
      * @param required
      * @param group if change show group
      * */
     export let upperItemList = [];
-    // Set default Group : When props sets curGroup changed it
-    export let curGroup = 'a';
+    // Set default Group : null
+    let curGroup = null;
     let filterList = [];
 
-    groupChange(curGroup);
+    $: {
+        let group = upperItemList.find((e) => e.type == 'group-radio');
+        if (group) {
+            // when group-radio is exists then set the group
+            curGroup = group.data;
+            groupChange(curGroup);
+        }
+    }
     // Internal group select
     export function groupChange(val) {
         curGroup = this?.value || val;
@@ -37,14 +44,16 @@
             return e.required && (e.data == null || e.data == '');
         });
         if (requireCheck && requireCheck.length > 0) {
-            for(let i = 0 ; i < requireCheck.length ; i++) {
-                let item = filterList.find(ee => requireCheck[i].field == ee.field);
+            for (let i = 0; i < requireCheck.length; i++) {
+                let item = filterList.find(
+                    (ee) => requireCheck[i].field == ee.field
+                );
                 if (item) {
-                    item.message = 'Required input';
+                    item.message = 'Required input field';
                 }
             }
             // refresh filterList
-            filterList = filterList
+            filterList = filterList;
             return [];
         }
         return filterList
@@ -53,13 +62,12 @@
                 return { field: e.field, value: e.data };
             });
     }
-
     function checkboxGroupAll(e) {
         let on = e.target.checked;
         let chk = filterList.find(
             (ee) => ee.field == e.target.getAttribute('field')
         );
-        chk.data = on ? chk.list : [];
+        chk.data = on ? chk.options : [];
     }
     function checkboxGroupClick(e) {
         let chk = filterList.find(
@@ -67,12 +75,12 @@
         );
         chk.extra = {
             ...(chk.extra || {}),
-            checkedGroup: chk.data.length === chk.list.length,
+            checkedGroup: chk.data.length === chk.options.length,
         };
         chk.extra = {
             ...(chk.extra || {}),
             indeterminate:
-                chk.data.length > 0 && chk.data.length < chk.list.length,
+                chk.data.length > 0 && chk.data.length < chk.options.length,
         };
     }
 </script>
@@ -80,7 +88,7 @@
 <!-- svelte-ignore non-top-level-reactive-declaration -->
 <div class="upperItemsWrap">
     <div class="leftInputWrap">
-        {#each filterList as { align, type, label, title, html, field, func, data, list, required, extra, ...attrs }}
+        {#each filterList as { align, type, label, title, html, field, func, data, options, required, extra, ...attrs }}
             {#if align == undefined || align == 'left'}
                 <div class="upperItem">
                     {#if type == 'text'}
@@ -92,31 +100,23 @@
                             {...attrs}
                         />
                     {:else if type == 'group-radio'}
-                        {label}
-                        <div style="display: flex;">
-                            {#each list as item}
-                                <Radio
-                                    bind:group={data}
-                                    value={item.data}
-                                    on:change={groupChange}
-                                >
-                                    {item.label}
-                                </Radio>
-                            {/each}
-                        </div>
+                        <Radio
+                            bind:group={field}
+                            bind:value={data}
+                            {label}
+                            {title}
+                            {options}
+                            on:change={groupChange}
+                        />
                     {:else if type == 'radio'}
-                        {label}
-                        <div style="display: flex;">
-                            {#each list as item}
-                                <Radio
-                                    bind:group={data}
-                                    value={item.data}
-                                    on:change={func}
-                                >
-                                    {item.label}
-                                </Radio>
-                            {/each}
-                        </div>
+                        <Radio
+                            bind:group={field}
+                            bind:value={data}
+                            {label}
+                            {title}
+                            {options}
+                            on:change={func}
+                        />
                     {:else if type == 'date'}
                         <Datefield
                             {label}
@@ -135,7 +135,7 @@
                             {/if}
                         </Checkbox>
                     {:else if type == 'checkbox-group'}
-                        <CheckboxGroup {label} {list} {data} />
+                        <CheckboxGroup {label} {options} {data} />
                     {:else if type == 'button'}
                         <Button color="primary" on:click={func}>{label}</Button>
                     {/if}
@@ -144,7 +144,7 @@
         {/each}
     </div>
     <div class="rightWrap">
-        {#each filterList as { align, type, label, title, html, field, func, data, list, required, extra, ...attrs }}
+        {#each filterList as { align, type, label, title, html, field, func, data, options, required, extra, ...attrs }}
             {#if align == 'right'}
                 <div class="upperItem">
                     {#if type == 'button'}

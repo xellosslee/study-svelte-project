@@ -1,28 +1,27 @@
 <script>
     import { onMount } from 'svelte';
     import UpperItems from '../../components/UpperItems.svelte';
-    let curGroup = 'a'; // Initial Group
     let upperItems;
     let upperItemList = [
         {
             type: 'group-radio',
             label: 'GroupChange',
-            list: [
-                { label: 'a', data: 'a' },
-                { label: 'b', data: 'b' },
-            ],
-            data: curGroup,
+            options: {
+                'A': 'a',
+                'B': 'b'
+            },
+            data: 'a',
         },
         {
             type: 'text',
-            label: '고객명',
+            label: 'CustomerName',
             field: 'userName',
-            title: '고객 이름을 입력해주세요',
+            title: 'Please input customer name',
             required: true,
         },
         {
             type: 'text',
-            label: '고객명B',
+            label: 'CustomerName B',
             field: 'userNameB',
             required: true,
             group: 'b'
@@ -38,10 +37,10 @@
             type: 'radio',
             label: 'Authorization',
             field: 'join',
-            list: [
-                { label: 'yes', data: 1 },
-                { label: 'no', data: 0 },
-            ],
+            options: {
+                'yes': 1,
+                'no': 0
+            },
             data: 1,
             required: false,
         },
@@ -66,6 +65,7 @@
             func: () => {
                 let params = upperItems.getValues()
                 console.log(params);
+                // call api and result set the table or grid 
             },
         },
     ];
@@ -75,4 +75,4 @@
     });
 </script>
 
-<UpperItems bind:this={upperItems} {upperItemList} {curGroup} />
+<UpperItems bind:this={upperItems} {upperItemList} />

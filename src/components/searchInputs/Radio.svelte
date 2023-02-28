@@ -1,4 +1,5 @@
 <script>
+    export let group = null;
     export let value = '';
     export let readonly = false;
     export let disabled = false;
@@ -7,24 +8,30 @@
     export let label = '';
     export let message = '';
     export let attrs = {};
+    export let options = {};
     $: {
         attrs = {
             disabled: disabled ? disabled : undefined,
             readonly: readonly ? readonly : undefined,
         };
+        value
     }
 </script>
 
 <div class="wrapper">
-    <label {title}>
+    <div class="item" {title}>
         <span class="label"
             >{label}
             {#if required}
                 *
             {/if}
         </span>
-        <input bind:value {...attrs} />
-    </label>
+        {#each Object.entries(options) as [key, val]}
+            <label>
+                {key} <input type="radio" bind:group={value} value={val} {...attrs} on:change />
+            </label>
+        {/each}
+    </div>
     {#if !!message}
         <div class="message">{message}</div>
     {/if}
@@ -35,17 +42,17 @@
         width: 100%;
         font-size: 12px;
     }
-    .wrapper label {
+    .wrapper > .item {
         display: flex;
         align-items: center;
         border: 0.5px solid var(--border);
         height: 30px;
         box-sizing: border-box;
     }
-    .wrapper label .label {
+    .wrapper > .item .label {
         margin: 0 10px;
     }
-    .wrapper label input {
+    .wrapper > .item input {
         height: 100%;
         background: inherit;
         border: none;
