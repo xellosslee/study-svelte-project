@@ -40,8 +40,7 @@
             for(let i = 0 ; i < requireCheck.length ; i++) {
                 let item = filterList.find(ee => requireCheck[i].field == ee.field);
                 if (item) {
-                    console.log('필수 입력데이터 없음', item);
-                    item.message = '필수 입력란입니다.';
+                    item.message = 'Required input';
                 }
             }
             // refresh filterList
