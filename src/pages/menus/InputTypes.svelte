@@ -15,13 +15,14 @@
         },
         {
             type: 'text',
-            label: 'UserName',
+            label: '고객명',
             field: 'userName',
+            title: '고객 이름을 입력해주세요',
             required: true,
         },
         {
             type: 'text',
-            label: 'UserNameB',
+            label: '고객명B',
             field: 'userNameB',
             required: true,
             group: 'b'
@@ -59,6 +60,7 @@
             required: false,
         },
         {
+            align: 'right',
             type: 'button',
             label: 'Search',
             func: () => {
