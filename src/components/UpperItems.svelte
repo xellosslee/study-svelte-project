@@ -13,7 +13,6 @@
      * @param list if type radio, select then must has this attribute
      * @param required
      * @param group if change show group
-     * @param extra if item has custom action using in this value
      * */
     export let upperItemList = [];
     // Set default Group : When props sets curGroup changed it
@@ -38,11 +37,15 @@
             return e.required && (e.data == null || e.data == '');
         });
         if (requireCheck && requireCheck.length > 0) {
-            alert(
-                `필수값 [${requireCheck
-                    .map((e) => e.label)
-                    .join(',')}] 이 누락되었습니다.`
-            );
+            for(let i = 0 ; i < requireCheck.length ; i++) {
+                let item = filterList.find(ee => requireCheck[i].field == ee.field);
+                if (item) {
+                    console.log('필수 입력데이터 없음', item);
+                    item.message = '필수 입력란입니다.';
+                }
+            }
+            // refresh filterList
+            filterList = filterList
             return [];
         }
         return filterList
@@ -78,11 +81,17 @@
 <!-- svelte-ignore non-top-level-reactive-declaration -->
 <div class="upperItemsWrap">
     <div class="leftInputWrap">
-        {#each filterList as { align, type, label, title, html, field, func, data, list, required, extra }}
+        {#each filterList as { align, type, label, title, html, field, func, data, list, required, extra, ...attrs }}
             {#if align == undefined || align == 'left'}
                 <div class="upperItem">
                     {#if type == 'text'}
-                        <Text bind:value={data} {label} {title} {required} />
+                        <Text
+                            bind:value={data}
+                            {label}
+                            {title}
+                            {required}
+                            {...attrs}
+                        />
                     {:else if type == 'group-radio'}
                         {label}
                         <div style="display: flex;">
@@ -136,7 +145,7 @@
         {/each}
     </div>
     <div class="rightWrap">
-        {#each filterList as { align, type, label, title, html, field, func, data, list, required, extra }}
+        {#each filterList as { align, type, label, title, html, field, func, data, list, required, extra, ...attrs }}
             {#if align == 'right'}
                 <div class="upperItem">
                     {#if type == 'button'}
@@ -160,7 +169,7 @@
     .upperItem {
         min-width: 100px;
         max-width: 400px;
-        /* padding: 0 12px 0 0; */
+        padding: 0 12px 0 0;
         background: var(--bg-color);
     }
 </style>

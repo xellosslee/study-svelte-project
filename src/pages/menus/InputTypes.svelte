@@ -64,7 +64,8 @@
             type: 'button',
             label: 'Search',
             func: () => {
-                console.log(upperItems.getValues());
+                let params = upperItems.getValues()
+                console.log(params);
             },
         },
     ];

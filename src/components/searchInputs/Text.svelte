@@ -28,7 +28,7 @@
         <input bind:value {...attrs} />
     </label>
     {#if !!message}
-        <div>{message}</div>
+        <div class="message">{message}</div>
     {/if}
 </div>
 
@@ -55,5 +55,8 @@
     }
     .wrapper :global(.thin) {
         margin-top: -8px !important;
+    }
+    .message {
+        color: var(--accent);
     }
 </style>
