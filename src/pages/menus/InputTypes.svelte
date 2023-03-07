@@ -2,7 +2,7 @@
     import { onMount } from 'svelte';
     import UpperItems from '../../components/UpperItems.svelte';
     import AGGridSvelte from 'ag-grid-svelte';
-    let title = '';
+    let menuTitle = '';
     let upperItems;
     let upperItemList = [
         {
@@ -87,6 +87,9 @@
 </script>
 
 <div class="wrap">
+    {#if menuTitle}
+        <h3>{menuTitle}</h3>
+    {/if}
     <UpperItems bind:this={upperItems} {upperItemList} />
     <div class="gridWrap">
         <AGGridSvelte />
