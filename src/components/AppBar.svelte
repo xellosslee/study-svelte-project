@@ -98,7 +98,7 @@
         <Icon path={home} />
     </a>
 
-    <div class="title">Project Back Office</div>
+    <div class="title">Back Office System</div>
 
     {#if !legacy}
         <Button
