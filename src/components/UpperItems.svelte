@@ -87,7 +87,7 @@
 
 <!-- svelte-ignore non-top-level-reactive-declaration -->
 <div class="upperItemsWrap">
-    <div class="leftInputWrap">
+    <div class="inputWrap">
         {#each filterList as { align, type, label, title, html, field, func, data, options, required, extra, ...attrs }}
             {#if align == undefined || align == 'left'}
                 <div class="upperItem">
@@ -139,12 +139,8 @@
                     {/if}
                 </div>
             {/if}
-        {/each}
-    </div>
-    <div class="rightWrap">
-        {#each filterList as { align, type, label, title, html, field, func, data, options, required, extra, ...attrs }}
             {#if align == 'right'}
-                <div class="upperItem">
+                <div class="upperItem right">
                     {#if type == 'button'}
                         <Button color="primary" on:click={func}>{label}</Button>
                     {/if}
@@ -158,7 +154,7 @@
     .upperItemsWrap {
         display: flex;
     }
-    .leftInputWrap {
+    .inputWrap {
         display: flex;
         flex-wrap: wrap;
         width: 100%;
@@ -168,5 +164,16 @@
         max-width: 400px;
         padding: 0 12px 12px 0;
         background: var(--bg-color);
+    }
+    .upperItem.right {
+        margin-left: auto;
+    }
+    /* mobile device */
+	@media only screen and (max-width: 720px) {
+        .upperItem.right {
+            width: 100%;
+            flex: 1 0 auto;
+            text-align: center;
+        }
     }
 </style>
