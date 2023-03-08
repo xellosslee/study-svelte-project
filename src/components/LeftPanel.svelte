@@ -1,7 +1,7 @@
 <script>
     export let visible = false;
     export let currentPath = '';
-    export let sitenav = [];
+    export let nav = [];
 
     import { Button, Icon, Sidepanel } from 'svelte-mui/src';
 
@@ -20,12 +20,12 @@
         >
             <Icon path={arrowBack} />
         </Button>
-        <span style="margin-left:4px;">Logo</span>
+        <span style="margin-left:4px;"></span>
     </div>
 
     <div style="padding: 8px 0;">
         <Nav
-            routes={sitenav}
+            routes={nav}
             {currentPath}
             on:click={() => {
                 visible = false;
