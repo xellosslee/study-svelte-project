@@ -23,6 +23,14 @@
         },
         {
             type: 'text',
+            label: 'UserNo',
+            field: 'userNo',
+            title: 'Please input user no',
+            dataFormat: 'number',
+            required: true,
+        },
+        {
+            type: 'text',
             label: 'CustomerName B',
             field: 'userNameB',
             required: true,

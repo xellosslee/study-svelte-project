@@ -141,9 +141,6 @@
 		transition: 0.15s linear;
 		min-height: calc(100vh - 80px);
 	}
-	:global(.page) h3:first-child {
-		margin-top: 0;
-	}
 	.nav-panel {
 		position: fixed;
 		top: 64px;
