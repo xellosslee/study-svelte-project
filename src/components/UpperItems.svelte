@@ -56,6 +56,13 @@
             filterList = filterList;
             return [];
         }
+        filterList
+            .filter((e) => !e.message)
+            .forEach((e,i) => {
+                filterList[i].message = null;
+            });
+        // refresh filterList
+        filterList = filterList;
         return filterList
             .filter((e) => e.field)
             .map((e) => {
@@ -169,7 +176,7 @@
         margin-left: auto;
     }
     /* mobile device */
-	@media only screen and (max-width: 720px) {
+    @media only screen and (max-width: 720px) {
         .upperItem.right {
             width: 100%;
             flex: 1 0 auto;
