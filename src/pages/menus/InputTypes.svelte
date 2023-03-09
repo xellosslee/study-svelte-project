@@ -89,6 +89,10 @@
             },
         },
     ];
+    onMount(async () => {
+        // External group select
+        // upperItems.groupChange('a');
+    });
     let api, columnApi;
 
     const onGridReady = (event) => {
@@ -97,22 +101,20 @@
 
         // 테스트 컬럼 및 데이터 설정. 추후 Api를 통해 내려받는 방식으로 구현할 예정
         api.setColumnDefs([
-            { field: 'vin', headerName: '차대번호', lockVisible: true },
-            { field: 'price', headerName: 'MSRP', valueFormatter: 'price' },
+            { field: 'no', headerName: 'No', lockVisible: true },
+            { field: 'text', headerName: 'text' },
             { field: 'createdAt', headerName: '생성일시' },
         ]);
-        api.setRowData([
-            {
-                vin: 'test',
-                price: 10,
+        let list = [];
+        for (let i = 0; i < 1000; i++) {
+            list.push({
+                no: i,
+                text: 'test',
                 createdAt: dayjs().format('YYYY-MM-DD hh:mm:ss'),
-            },
-        ]);
+            });
+        }
+        api.setRowData(list);
     };
-    onMount(async () => {
-        // External group select
-        // upperItems.groupChange('a');
-    });
 </script>
 
 <div class="wrap">
