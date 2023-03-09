@@ -2,6 +2,7 @@
     import { onMount } from 'svelte';
     import UpperItems from '../../components/UpperItems.svelte';
     import AGGridSvelte from 'ag-grid-svelte';
+    import dayjs from 'dayjs';
     let menuTitle = '';
     let upperItems;
     let upperItemList = [
@@ -88,6 +89,26 @@
             },
         },
     ];
+    let api, columnApi;
+
+    const onGridReady = (event) => {
+        api = event.api;
+        columnApi = event.columnApi;
+
+        // 테스트 컬럼 및 데이터 설정. 추후 Api를 통해 내려받는 방식으로 구현할 예정
+        api.setColumnDefs([
+            { field: 'vin', headerName: '차대번호', lockVisible: true },
+            { field: 'price', headerName: 'MSRP', valueFormatter: 'price' },
+            { field: 'createdAt', headerName: '생성일시' },
+        ]);
+        api.setRowData([
+            {
+                vin: 'test',
+                price: 10,
+                createdAt: dayjs().format('YYYY-MM-DD hh:mm:ss'),
+            },
+        ]);
+    };
     onMount(async () => {
         // External group select
         // upperItems.groupChange('a');
@@ -100,7 +121,7 @@
     {/if}
     <UpperItems bind:this={upperItems} {upperItemList} />
     <div class="gridWrap">
-        <AGGridSvelte />
+        <AGGridSvelte {onGridReady} />
     </div>
 </div>
 
