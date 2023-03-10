@@ -15,8 +15,10 @@
 	import RightPanel from './components/RightPanel.svelte';
 	import LoginDialog from './components/LoginDialog.svelte';
 	import Nav from './components/nav/Nav.svelte';
+	import CommonDialog from './components/CommonDialog.svelte';
 
 	import nav from './nav';
+    import { popup } from './store';
 
 	let maxWidth = 720;
 	let offsetTop = 0;
@@ -69,6 +71,11 @@
 	function onScroll() {
 		offsetTop = window.pageYOffset || document.documentElement.scrollTop;
 	}
+
+	let popupAttr
+	popup.subscribe(value => {
+		popupAttr = value
+	})
 </script>
 
 <svelte:window on:scroll|passive={onScroll} on:resize|passive={onResize} />
@@ -93,6 +100,8 @@
 <RightPanel bind:visible={rightPanelVisible} />
 
 <LoginDialog bind:visible={loginDialogVisible} bind:username bind:password />
+
+<CommonDialog bind:popupAttr={popupAttr} />
 
 <main>
 	{#if maxWidth > 720}

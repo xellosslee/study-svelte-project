@@ -28,10 +28,4 @@
         font-size: 14px;
         color: var(--accent);
     }
-    .warning {
-        background: var(--bg-panel);
-        border-left: 4px solid #fdd835;
-        padding: 8px;
-        font-size: 14px;
-    }
 </style>

@@ -34,10 +34,10 @@
     }
     export function getValues() {
         let requireCheck = filterdList.filter((e) => {
-            e.required && (e.data == null || e.data == '');
+            e.required && (e.data == null || e.data == '' || e.data == []);
         });
         if (requireCheck) {
-            console.log('');
+            return null;
         }
         return filterdList.map((e) => {
             return { field: e.field, value: e.data };
