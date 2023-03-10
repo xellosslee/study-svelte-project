@@ -1,23 +1,41 @@
 <script>
     import { onMount } from 'svelte';
     import UpperItems from '../../components/UpperItems.svelte';
-    let curGroup = 'a'; // Initial Group
+    import AGGridSvelte from 'ag-grid-svelte';
+    import dayjs from 'dayjs';
+    let menuTitle = '';
     let upperItems;
-    let upperItemlist = [
+    let upperItemList = [
         {
             type: 'group-radio',
             label: 'GroupChange',
-            list: [
-                { label: 'a', data: 'a' },
-                { label: 'b', data: 'b' },
-            ],
-            data: curGroup,
+            options: {
+                A: 'a',
+                B: 'b',
+            },
+            data: 'a',
         },
         {
             type: 'text',
-            label: 'UserName',
+            label: 'CustomerName',
             field: 'userName',
+            title: 'Please input customer name',
             required: true,
+        },
+        {
+            type: 'text',
+            label: 'UserNo',
+            field: 'userNo',
+            title: 'Please input user no',
+            dataFormat: 'number',
+            required: true,
+        },
+        {
+            type: 'text',
+            label: 'CustomerName B',
+            field: 'userNameB',
+            required: true,
+            group: 'b',
         },
         {
             type: 'date',
@@ -30,10 +48,10 @@
             type: 'radio',
             label: 'Authorization',
             field: 'join',
-            list: [
-                { label: 'yes', data: 1 },
-                { label: 'no', data: 0 },
-            ],
+            options: {
+                yes: 1,
+                no: 0,
+            },
             data: 1,
             required: false,
         },
@@ -47,15 +65,27 @@
         {
             type: 'checkbox-group',
             field: 'checkGroup',
-            list: ['apple','pie','berry'],
+            list: [
+                'apple',
+                'pie',
+                'berry',
+                'berry',
+                'berry',
+                'berry',
+                'berry',
+                'berry',
+            ],
             data: [],
             required: false,
         },
         {
+            align: 'right',
             type: 'button',
             label: 'Search',
             func: () => {
-                console.log(upperItems.getValues());
+                let params = upperItems.getValues();
+                console.log(params);
+                // call api and result set the table or grid
             },
         },
     ];
@@ -63,6 +93,48 @@
         // External group select
         // upperItems.groupChange('a');
     });
+    let api, columnApi;
+
+    const onGridReady = (event) => {
+        api = event.api;
+        columnApi = event.columnApi;
+
+        // 테스트 컬럼 및 데이터 설정. 추후 Api를 통해 내려받는 방식으로 구현할 예정
+        api.setColumnDefs([
+            { field: 'no', headerName: 'No', lockVisible: true },
+            { field: 'text', headerName: 'text' },
+            { field: 'createdAt', headerName: '생성일시' },
+        ]);
+        let list = [];
+        for (let i = 0; i < 1000; i++) {
+            list.push({
+                no: i,
+                text: 'test',
+                createdAt: dayjs().format('YYYY-MM-DD hh:mm:ss'),
+            });
+        }
+        api.setRowData(list);
+    };
 </script>
 
-<UpperItems bind:this={upperItems} {upperItemlist} {curGroup} />
+<div class="wrap">
+    {#if menuTitle}
+        <h3>{menuTitle}</h3>
+    {/if}
+    <UpperItems bind:this={upperItems} {upperItemList} />
+    <div class="gridWrap">
+        <AGGridSvelte {onGridReady} />
+    </div>
+</div>
+
+<style>
+    .wrap {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+    }
+    .gridWrap {
+        width: 100%;
+        height: 100%;
+    }
+</style>

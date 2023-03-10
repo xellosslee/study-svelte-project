@@ -52,14 +52,23 @@
                 window.CSS.supports &&
                 window.CSS.supports('(--foo: red)')
             );
-
-            let mql = window.matchMedia('(prefers-color-scheme: dark)');
-            mql.matches && setTheme('dark');
-        } catch (err) {} // eslint-disable-line
+            let ssTheme = sessionStorage.getItem('theme');
+            if (ssTheme) {
+                setTheme(ssTheme);
+            } else {
+                // set the computer default theme
+                let mql = window.matchMedia('(prefers-color-scheme: dark)');
+                mql.matches && setTheme('dark');
+            }
+        } catch (err) {
+            console.error(err);
+        } // eslint-disable-line
     });
 
     function setTheme(name) {
         name = name.replace(/\s/g, '').toLowerCase();
+
+        sessionStorage.setItem('theme', name);
 
         $theme = name;
         $theme === 'dark'
@@ -89,7 +98,7 @@
         <Icon path={home} />
     </a>
 
-    <div class="title">Project Back Office</div>
+    <div class="title">Back Office System</div>
 
     {#if !legacy}
         <Button

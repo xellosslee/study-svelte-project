@@ -19,6 +19,8 @@
 
 	import nav from './nav';
     import { popup } from './store';
+	import 'ag-grid-community/styles/ag-grid.css'; // Core grid CSS, always needed
+	import 'ag-grid-community/styles/ag-theme-alpine.css'; // Optional theme CSS
 
 	let maxWidth = 720;
 	let offsetTop = 0;
@@ -81,7 +83,7 @@
 <svelte:window on:scroll|passive={onScroll} on:resize|passive={onResize} />
 
 <svelte:head>
-	<title>svelte-mui{titlePage ? `: ${titlePage}` : ''}</title>
+	<title>{`Back Office System${titlePage ? ` : ${titlePage}` : ''}`}</title>
 </svelte:head>
 
 <AppBar
@@ -115,10 +117,6 @@
 
 	<div class="page">
 		{#if page}
-			{#if titlePage}
-				<h3>{titlePage}</h3>
-			{/if}
-
 			<svelte:component this={page.default || page} {...ctx} />
 
 			{#if maxWidth < 721 && ctx.path === '/'}
@@ -146,11 +144,11 @@
 		padding: 1rem;
 	}
 	.page {
+		display: flex;
+		flex-flow: row wrap;
 		margin-left: 224px;
 		transition: 0.15s linear;
-	}
-	:global(.page) h3:first-child {
-		margin-top: 0;
+		min-height: calc(100vh - 80px);
 	}
 	.nav-panel {
 		position: fixed;
