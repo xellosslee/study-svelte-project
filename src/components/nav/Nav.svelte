@@ -1,8 +1,8 @@
 <script>
-	export let routes = [];
-	export let currentPath = "";
+	export let routes = []
+	export let currentPath = ''
 
-	import NavItem from "./NavItem.svelte";
+	import NavItem from './NavItem.svelte'
 </script>
 
 <nav on:click>

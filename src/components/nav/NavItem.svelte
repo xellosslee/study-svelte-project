@@ -1,19 +1,13 @@
 <script>
-	export let path;
-	export let name;
-	export let active = false;
+	export let path
+	export let name
+	export let active = false
 
-	$: level = path.split("/").length - 1;
+	$: level = path.split('/').length - 1
 </script>
 
 {#if path && name}
-	<a
-		href={path}
-		class="nav-item"
-		class:active
-		class:dense={level > 1}
-		style={`padding-left: ${12 * level}px;`}
-	>
+	<a href={path} class="nav-item" class:active class:dense={level > 1} style={`padding-left: ${12 * level}px;`}>
 		{name}
 	</a>
 {/if}
@@ -49,7 +43,7 @@
 		background-color: currentColor;
 		color: inherit;
 		bottom: 0;
-		content: "";
+		content: '';
 		left: 0;
 		opacity: 0;
 		pointer-events: none;

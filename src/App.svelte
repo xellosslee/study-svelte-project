@@ -1,81 +1,75 @@
 <script>
-	export let page = null;
-	export let titlePage = null;
-	export let ctx = null;
+	export let page = null
+	export let titlePage = null
+	export let ctx = null
 
-	import { onMount, tick } from 'svelte';
-	import { fly } from 'svelte/transition';
-	import { linear } from 'svelte/easing';
+	import { onMount, tick } from 'svelte'
+	import { fly } from 'svelte/transition'
+	import { linear } from 'svelte/easing'
 
-	import { Icon } from 'svelte-mui/src';
-	import { arrowForward } from './components/icons';
+	import { Icon } from 'svelte-mui/src'
+	import { arrowForward } from './components/icons'
 
-	import AppBar from './components/AppBar.svelte';
-	import LeftPanel from './components/LeftPanel.svelte';
-	import RightPanel from './components/RightPanel.svelte';
-	import LoginDialog from './components/LoginDialog.svelte';
-	import Nav from './components/nav/Nav.svelte';
-	import CommonDialog from './components/CommonDialog.svelte';
+	import AppBar from './components/AppBar.svelte'
+	import LeftPanel from './components/LeftPanel.svelte'
+	import RightPanel from './components/RightPanel.svelte'
+	import LoginDialog from './components/LoginDialog.svelte'
+	import Nav from './components/nav/Nav.svelte'
+	import CommonDialog from './components/CommonDialog.svelte'
 
-	import nav from './nav';
-    import { popup } from './store';
-	import 'ag-grid-community/styles/ag-grid.css'; // Core grid CSS, always needed
-	import 'ag-grid-community/styles/ag-theme-alpine.css'; // Optional theme CSS
+	import nav from './nav'
+	import { popup } from './store'
+	import 'ag-grid-community/styles/ag-grid.css' // Core grid CSS, always needed
+	import 'ag-grid-community/styles/ag-theme-alpine.css' // Optional theme CSS
 
-	let maxWidth = 720;
-	let offsetTop = 0;
-	let leftPanelVisible = false;
-	let rightPanelVisible = false;
-	let loginDialogVisible = false;
-	let username = '';
-	let password = '';
+	let maxWidth = 720
+	let offsetTop = 0
+	let leftPanelVisible = false
+	let rightPanelVisible = false
+	let loginDialogVisible = false
+	let username = ''
+	let password = ''
 
 	onMount(async () => {
-		onResize();
-	});
+		onResize()
+	})
 
 	function onKeyDown(e) {
 		if (e.keyCode === 13 || e.keyCode === 32) {
-			e.stopPropagation();
-			e.preventDefault();
+			e.stopPropagation()
+			e.preventDefault()
 
-			leftPanelVisible = true;
+			leftPanelVisible = true
 		}
 	}
 
 	async function onResize() {
-		maxWidth =
-			window.innerWidth ||
-			document.documentElement.clientWidth ||
-			document.body.clientWidth;
+		maxWidth = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth
 
 		if (maxWidth > 720) {
-			delete nav[0].name;
-			leftPanelVisible = false;
+			delete nav[0].name
+			leftPanelVisible = false
 
-			await tick();
-			let node = document.getElementsByClassName('nav-panel')[0];
+			await tick()
+			let node = document.getElementsByClassName('nav-panel')[0]
 			try {
-				const rc = node.getClientRects()[0];
-				const h =
-					window.innerHeight ||
-					document.documentElement.clientHeight ||
-					document.body.clientHeight;
-				const maxHeight = h - rc.top - 24;
+				const rc = node.getClientRects()[0]
+				const h = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight
+				const maxHeight = h - rc.top - 24
 
-				node.style.maxHeight = maxHeight + 'px';
+				node.style.maxHeight = maxHeight + 'px'
 			} catch (err) {} // eslint-disable-line
 		} else {
-			nav[0].name = 'Home';
+			nav[0].name = 'Home'
 		}
 	}
 
 	function onScroll() {
-		offsetTop = window.pageYOffset || document.documentElement.scrollTop;
+		offsetTop = window.pageYOffset || document.documentElement.scrollTop
 	}
 
 	let popupAttr
-	popup.subscribe(value => {
+	popup.subscribe((value) => {
 		popupAttr = value
 	})
 </script>
@@ -86,31 +80,19 @@
 	<title>{`Back Office System${titlePage ? ` : ${titlePage}` : ''}`}</title>
 </svelte:head>
 
-<AppBar
-	fade={offsetTop > 36}
-	bind:leftPanelVisible
-	bind:rightPanelVisible
-	bind:loginDialogVisible
-/>
+<AppBar fade={offsetTop > 36} bind:leftPanelVisible bind:rightPanelVisible bind:loginDialogVisible />
 
-<LeftPanel
-	bind:visible={leftPanelVisible}
-	currentPath={ctx ? ctx.path : null}
-	{nav}
-/>
+<LeftPanel bind:visible={leftPanelVisible} currentPath={ctx ? ctx.path : null} {nav} />
 
 <RightPanel bind:visible={rightPanelVisible} />
 
 <LoginDialog bind:visible={loginDialogVisible} bind:username bind:password />
 
-<CommonDialog bind:popupAttr={popupAttr} />
+<CommonDialog bind:popupAttr />
 
 <main>
 	{#if maxWidth > 720}
-		<div
-			class="nav-panel"
-			transition:fly={{ x: -224, duration: 150, easing: linear }}
-		>
+		<div class="nav-panel" transition:fly={{ x: -224, duration: 150, easing: linear }}>
 			<Nav routes={nav} currentPath={ctx ? ctx.path : null} />
 		</div>
 	{/if}
@@ -122,9 +104,8 @@
 			{#if maxWidth < 721 && ctx.path === '/'}
 				<div
 					class="explore"
-					tabindex="0"
 					on:click={() => {
-						leftPanelVisible = true;
+						leftPanelVisible = true
 					}}
 					on:keydown={onKeyDown}
 				>
